@@ -1,0 +1,16 @@
+sudo: required
+dist: trusty
+# Force travis to use its minimal image with default Python settings
+language: generic
+compiler:
+  - gcc
+env:
+  global:
+  matrix:
+    - VAGRANT_BOX="box-cutter/debian81-i386"
+install:
+  - sudo apt-get update -q
+  - sudo apt-get install -qy virtualbox
+  - wget -q https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.deb -O vagrant.deb
+  - sudo dpkg -i vagrant.deb
+  - vagrant box add -f --provider virtualbox $VAGRANT_BOX
